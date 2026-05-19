@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 1929251278}
   - component: {fileID: 1929251277}
   - component: {fileID: 1929251279}
+  - component: {fileID: 1929251280}
   m_Layer: 0
   m_Name: FPSPlayer
   m_TagString: Untagged
@@ -666,6 +667,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
+--- !u!114 &1929251280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929251276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b60da89fb026dc4f8b7ee29b71d4b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

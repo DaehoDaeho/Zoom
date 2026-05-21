@@ -7,8 +7,13 @@ using UnityEngine;
 public class FPSPlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5.0f;
+    [SerializeField] private float gravity = -20.0f;
+    [SerializeField] private float jumpHeight = 1.6f;
+
+    [SerializeField] private float groundedStickVelocity = -2.0f;
 
     private CharacterController characterController;
+    private float verticalVelocity;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,12 +39,35 @@ public class FPSPlayerMovement : MonoBehaviour
 
         Vector3 rightDirection = transform.right * horizontalInput;
         Vector3 forwardDirection = transform.forward * verticalInput;
-        Vector3 moveDirection = rightDirection + forwardDirection;
+        Vector3 horizontalDirection = rightDirection + forwardDirection;
 
-        moveDirection.Normalize();
+        if(horizontalDirection.sqrMagnitude > 1.0f)
+        {
+            horizontalDirection.Normalize();
+        }
 
-        Vector3 velocity = moveDirection * moveSpeed;
-        Vector3 frameMovement = velocity * Time.deltaTime;
+        Vector3 horizontalVelocity = horizontalDirection * moveSpeed;
+
+        bool isGrounded = characterController.isGrounded;
+
+        if(isGrounded == true && verticalVelocity < 0.0f)
+        {
+            verticalVelocity = groundedStickVelocity;
+        }
+
+        bool jumpInput = Input.GetKeyDown(KeyCode.Space);
+
+        if(isGrounded == true && jumpInput == true)
+        {
+            verticalVelocity = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+        }
+
+        verticalVelocity += gravity * Time.deltaTime;
+
+        Vector3 verticalMovement = Vector3.up * verticalVelocity;
+        Vector3 totalVelocity = horizontalVelocity + verticalMovement;
+
+        Vector3 frameMovement = totalVelocity * Time.deltaTime;
 
         characterController.Move(frameMovement);
     }

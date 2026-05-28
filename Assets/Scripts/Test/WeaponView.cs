@@ -48,15 +48,15 @@ public class WeaponView : MonoBehaviour
 
     void DrawFirePointPreview()
     {
-        if(firePoint == null)
-        {
-            return;
-        }
+        //if(firePoint == null)
+        //{
+        //    return;
+        //}
 
-        Vector3 previewStart = firePoint.position;
-        Vector3 previewDirection = firePoint.forward;
-        Vector3 previewEnd = previewDirection * previewDistance;
+        //Vector3 previewStart = firePoint.position;
+        //Vector3 previewDirection = firePoint.forward;
+        //Vector3 previewEnd = previewDirection * previewDistance;
 
-        Debug.DrawRay(previewStart, previewEnd, Color.cyan);
+        //Debug.DrawRay(previewStart, previewEnd, Color.cyan);
     }
 }

@@ -11,6 +11,7 @@ public class WeaponRaycastShooter : MonoBehaviour
     [SerializeField] LayerMask hitLayerMask;
     [SerializeField] private float fireInterval = 0.15f;
     [SerializeField] private float debugDuration = 0.25f;
+    [SerializeField] private int damage = 25;
 
     private float lastFireTime = -999.0f;
 
@@ -86,6 +87,21 @@ public class WeaponRaycastShooter : MonoBehaviour
 
         Debug.Log("Raycast Hit / Target: " + hitName + " / Point: " + hitPoint +
             " / Distance: " + hitDistance);
+
+        TryApplyDamageToHitTarget(hitInfo);
+    }
+
+    void TryApplyDamageToHitTarget(RaycastHit hitInfo)
+    {
+        EnemyHealth enemyHealth = hitInfo.collider.GetComponent<EnemyHealth>();
+
+        if(enemyHealth != null)
+        {
+            if(enemyHealth.IsDead() == false)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
+        }
     }
 
     void HandleMiss(Vector3 rayOrigin, Vector3 rayDirection)

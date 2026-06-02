@@ -12,6 +12,7 @@ public class WeaponRaycastShooter : MonoBehaviour
     [SerializeField] private float fireInterval = 0.15f;
     [SerializeField] private float debugDuration = 0.25f;
     [SerializeField] private int damage = 25;
+    [SerializeField] private WeaponFeedback weaponFeedback;
 
     private float lastFireTime = -999.0f;
 
@@ -32,7 +33,7 @@ public class WeaponRaycastShooter : MonoBehaviour
         }
 
         lastFireTime = Time.time;
-        FireRaycast();
+        Shoot();
     }
 
     bool CanFire()
@@ -58,17 +59,20 @@ public class WeaponRaycastShooter : MonoBehaviour
         return true;
     }
 
-    void FireRaycast()
+    void Shoot()
     {
+        if (weaponFeedback != null)
+        {
+            weaponFeedback.PlayFireFeedback();
+        }
+
         Transform cameraTransform = playerCamera.transform;
 
         Vector3 rayOrigin = cameraTransform.position;
         Vector3 rayDirection = cameraTransform.forward;
 
         bool isHit = Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hitInfo, maxDistance, hitLayerMask);
-
-        DrawDebugRay(rayOrigin, rayDirection, isHit, hitInfo);
-
+        
         if(isHit == true)
         {
             HandleHit(hitInfo);
@@ -81,17 +85,15 @@ public class WeaponRaycastShooter : MonoBehaviour
 
     void HandleHit(RaycastHit hitInfo)
     {
-        string hitName = hitInfo.transform.name;
-        Vector3 hitPoint = hitInfo.point;
-        float hitDistance = hitInfo.distance;
+        bool hitEnemy = TryApplyDamageToHitTarget(hitInfo);
 
-        Debug.Log("Raycast Hit / Target: " + hitName + " / Point: " + hitPoint +
-            " / Distance: " + hitDistance);
-
-        TryApplyDamageToHitTarget(hitInfo);
+        if(weaponFeedback != null)
+        {
+            weaponFeedback.PlayHitFeedback(hitInfo, hitEnemy);
+        }
     }
 
-    void TryApplyDamageToHitTarget(RaycastHit hitInfo)
+    bool TryApplyDamageToHitTarget(RaycastHit hitInfo)
     {
         EnemyHealth enemyHealth = hitInfo.collider.GetComponent<EnemyHealth>();
 
@@ -100,8 +102,11 @@ public class WeaponRaycastShooter : MonoBehaviour
             if(enemyHealth.IsDead() == false)
             {
                 enemyHealth.TakeDamage(damage);
+                return true;
             }
         }
+
+        return false;
     }
 
     void HandleMiss(Vector3 rayOrigin, Vector3 rayDirection)

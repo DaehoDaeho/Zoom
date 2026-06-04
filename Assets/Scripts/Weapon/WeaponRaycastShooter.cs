@@ -13,13 +13,31 @@ public class WeaponRaycastShooter : MonoBehaviour
     [SerializeField] private float debugDuration = 0.25f;
     [SerializeField] private int damage = 25;
     [SerializeField] private WeaponFeedback weaponFeedback;
+    [SerializeField] private WeaponAmmo weaponAmmo;
 
     private float lastFireTime = -999.0f;
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) == true)
+        HandleReloadInput();
+        HandleFireInput();
+    }
+
+    void HandleReloadInput()
+    {
+        if(Input.GetKeyDown(KeyCode.R) == true)
+        {
+            if(weaponAmmo != null)
+            {
+                weaponAmmo.TryStartReload();
+            }
+        }
+    }
+
+    void HandleFireInput()
+    {
+        if (Input.GetMouseButtonDown(0) == true)
         {
             TryFire();
         }
@@ -28,6 +46,11 @@ public class WeaponRaycastShooter : MonoBehaviour
     void TryFire()
     {
         if(CanFire() == false)
+        {
+            return;
+        }
+
+        if(weaponAmmo.TryConsumeAmmo() == false)
         {
             return;
         }

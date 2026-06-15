@@ -3,6 +3,9 @@ using UnityEngine.AI;
 
 public class EnemyChaseAgent : MonoBehaviour
 {
+    [SerializeField] private EnemyState currentState = EnemyState.Idle;
+    [SerializeField] private EnemyHealth enemyHealth;
+
     [SerializeField] private Transform target;
     [SerializeField] private PlayerHealth targetHealth;
 
@@ -25,6 +28,8 @@ public class EnemyChaseAgent : MonoBehaviour
 
     public bool IsChasing { get; private set; }
 
+    public EnemyState CurrentState { get { return currentState; } }
+
     private void Awake()
     {
         lastTargetPosition = transform.position;
@@ -33,33 +38,9 @@ public class EnemyChaseAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(CanChaseTarget() == false)
-        {
-            StopAgentSafely();
-            IsChasing = false;
-            IsAttacking = false;
-            return;
-        }
-
         UpdateAttackTimer();
-
-        if(IsTargetInAttackRange() == true)
-        {
-            StopForAttack();
-            RotateToTarget();
-            TryAttack();
-            IsChasing = false;
-            IsAttacking = true;
-            return;
-        }
-
-        IsAttacking = false;
-        refreshTimer += Time.deltaTime;
-        if(refreshTimer >= targetRefreshInterval)
-        {
-            refreshTimer = 0.0f;
-            UpdateDestinationIfNeeded();
-        }
+        UpdateStateByRules();
+        ExecuteCurrentState();
     }
 
     bool CanChaseTarget()
@@ -183,5 +164,137 @@ public class EnemyChaseAgent : MonoBehaviour
         }
 
         attackTimer -= Time.deltaTime;
+    }
+
+    void HandleDeadState()
+    {
+        StopAgentSafely();
+        IsChasing = false;
+        IsAttacking = false;
+    }
+
+    void HandleAttackState()
+    {
+        StopForAttack();
+        RotateToTarget();
+        TryAttack();
+    }
+
+    void HandleChaseState()
+    {
+        refreshTimer -= Time.deltaTime;
+        if(refreshTimer <= 0.0f)
+        {
+            refreshTimer = targetRefreshInterval;
+            UpdateDestinationIfNeeded();
+        }
+    }
+
+    void HandleIdleState()
+    {
+        // 아직은 아무 처리도 하지 않음.
+    }
+
+    void ExecuteCurrentState()
+    {
+        if(currentState == EnemyState.Idle)
+        {
+            HandleIdleState();
+        }
+        else if(currentState == EnemyState.Chase)
+        {
+            HandleChaseState();
+        }
+        else if(currentState == EnemyState.Attack)
+        {
+            HandleAttackState();
+        }
+        else
+        {
+            HandleDeadState();
+        }
+    }
+
+    void ResumeAgentSafely()
+    {
+        agent.isStopped = false;
+    }
+
+    void EnterState(EnemyState state)
+    {
+        if(state == EnemyState.Idle)
+        {
+            StopAgentSafely();
+            IsChasing = false;
+            IsAttacking = false;
+        }
+        else if(state == EnemyState.Chase)
+        {
+            ResumeAgentSafely();
+            IsChasing = true;
+            IsAttacking = false;
+        }
+        else if(state == EnemyState.Attack)
+        {
+            StopForAttack();
+            IsChasing = false;
+            IsAttacking = true;
+        }
+        else
+        {
+            StopAgentSafely();
+            IsChasing = false;
+            IsAttacking = false;
+        }
+    }
+
+    void ExitState(EnemyState state)
+    {
+        // 아직은 처리할 것이 없음.
+    }
+
+    void ChangeState(EnemyState nextState)
+    {
+        if(currentState == nextState)
+        {
+            return;
+        }
+
+        ExitState(currentState);
+        currentState = nextState;
+        EnterState(currentState);
+    }
+
+    bool IsEnemyDead()
+    {
+        if(enemyHealth == null)
+        {
+            return false;
+        }
+
+        return enemyHealth.IsDead();
+    }
+
+    void UpdateStateByRules()
+    {
+        if(IsEnemyDead() == true)
+        {
+            ChangeState(EnemyState.Dead);
+            return;
+        }
+
+        if(CanChaseTarget() == false)
+        {
+            ChangeState(EnemyState.Idle);
+            return;
+        }
+
+        if(IsTargetInAttackRange() == true)
+        {
+            ChangeState(EnemyState.Attack);
+            return;
+        }
+
+        ChangeState(EnemyState.Chase);
     }
 }

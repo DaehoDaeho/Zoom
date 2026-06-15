@@ -3474,11 +3474,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb213addf9054a84c90aab569e9128d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  enemyHealth: {fileID: 1871043966}
   target: {fileID: 1929251278}
   targetHealth: {fileID: 1929251283}
   targetRefreshInterval: 0.15
   minTargetMoveDistance: 0.1
   agent: {fileID: 1871043968}
+  attackDistance: 1.5
+  attackDamage: 10
+  attackCooldown: 1.5
+  attackRotateSpeed: 8
 --- !u!195 &1871043968
 NavMeshAgent:
   m_ObjectHideFlags: 0

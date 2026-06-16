@@ -2347,6 +2347,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226379205}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1334031193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4416926081852918481, guid: b1639c9b375bd884986a2ee831724d7f, type: 3}
+  m_PrefabInstance: {fileID: 1356017684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1356017684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2402,7 +2407,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: b1639c9b375bd884986a2ee831724d7f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1691539306}
   m_SourcePrefab: {fileID: 100100000, guid: b1639c9b375bd884986a2ee831724d7f, type: 3}
 --- !u!1 &1377641315
 GameObject:
@@ -3175,6 +3183,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3893294197879345259, guid: b1639c9b375bd884986a2ee831724d7f, type: 3}
   m_PrefabInstance: {fileID: 1356017684}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1691539306
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334031193}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 36078ab0369161e49a29d349ae3e0739, type: 3}
+  m_Controller: {fileID: 9100000, guid: e5147ee2e2dfa7b4c97d5a5404e70469, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1731378694
 GameObject:
   m_ObjectHideFlags: 0
@@ -3388,6 +3418,7 @@ GameObject:
   - component: {fileID: 1871043966}
   - component: {fileID: 1871043968}
   - component: {fileID: 1871043967}
+  - component: {fileID: 1871043969}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -3461,7 +3492,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   destroyOnDeath: 1
-  destroyDelay: 0.8
+  destroyDelay: 4
 --- !u!114 &1871043967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3507,6 +3538,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1871043969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871043960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f79c0537000eed40a4337a3761b74f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1691539306}
+  enemyAgent: {fileID: 1871043967}
+  navMeshAgent: {fileID: 1871043968}
+  moveSpeedDampTime: 0.1
+  moveSpeedParam: moveSpeed
+  isAttackingParam: isAttacking
+  isDeadParam: isDead
 --- !u!1 &1929251276
 GameObject:
   m_ObjectHideFlags: 0

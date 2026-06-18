@@ -33,6 +33,13 @@ public class EnemyChaseAgent : MonoBehaviour
     private void Awake()
     {
         lastTargetPosition = transform.position;
+
+        GameObject targetObject = GameObject.FindGameObjectWithTag("Player");
+        if(targetObject != null)
+        {
+            target = targetObject.transform;
+            targetHealth = targetObject.GetComponent<PlayerHealth>();
+        }
     }
 
     // Update is called once per frame
@@ -65,7 +72,7 @@ public class EnemyChaseAgent : MonoBehaviour
             return false;
         }
 
-        if(targetHealth.IsDead == true)
+        if(targetHealth == null || targetHealth.IsDead == true)
         {
             return false;
         }

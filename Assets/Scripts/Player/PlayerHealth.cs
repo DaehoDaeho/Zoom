@@ -73,4 +73,22 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         currentHealth = 0;
     }
+
+    public bool Heal(int healAmount)
+    {
+        if(isDead == true)
+        {
+            return false;
+        }
+
+        if(currentHealth >= maxHealth)
+        {
+            return false;
+        }
+
+        currentHealth += healAmount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        return true;
+    }
 }

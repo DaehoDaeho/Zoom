@@ -102,4 +102,10 @@ public class WeaponAmmoHud : MonoBehaviour
             reloadText.text = string.Empty;
         }
     }
+
+    public void SetWeaponAmmo(WeaponAmmo newWeaponAmmo)
+    {
+        weaponAmmo = newWeaponAmmo;
+        RefreshHud();
+    }
 }

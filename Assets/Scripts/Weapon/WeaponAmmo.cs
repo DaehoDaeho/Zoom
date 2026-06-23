@@ -137,4 +137,14 @@ public class WeaponAmmo : MonoBehaviour
     {
         reserveAmmo += amount;
     }
+
+    public void ApplyWeaponData(WeaponData weaponData)
+    {
+        magazineSize = weaponData.MagazineSize;
+        reserveAmmo = weaponData.StartReserveAmmo;
+        reloadDuration = weaponData.ReloadDuration;
+
+        currentAmmo = magazineSize;
+        isReloading = false;
+    }
 }

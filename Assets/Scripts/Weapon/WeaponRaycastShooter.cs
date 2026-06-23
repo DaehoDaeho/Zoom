@@ -138,6 +138,13 @@ public class WeaponRaycastShooter : MonoBehaviour
         Debug.Log("Raycast Hit / End Point: " + endPoint);
     }
 
+    public void ApplyWeaponData(WeaponData weaponData)
+    {
+        damage = weaponData.Damage;
+        fireInterval = weaponData.FireInterval;
+        maxDistance = weaponData.MaxDistance;
+    }
+
     void DrawDebugRay(Vector3 rayOrigin, Vector3 rayDirection, bool isHit, RaycastHit hitInfo)
     {
         Color debugColor = Color.cyan;

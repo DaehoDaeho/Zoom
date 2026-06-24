@@ -8,6 +8,7 @@ public class WeaponSlot
     public WeaponData weaponData;
 
     [HideInInspector] public WeaponRaycastShooter shooter;
+    [HideInInspector] public WeaponProjectileShooter projectileShooter;
     [HideInInspector] public WeaponAmmo ammo;
 }
 
@@ -50,11 +51,19 @@ public class WeaponSwitcher : MonoBehaviour
         }
 
         slot.shooter = slot.weaponObject.GetComponentInChildren<WeaponRaycastShooter>();
+
+        slot.projectileShooter = slot.weaponObject.GetComponentInChildren<WeaponProjectileShooter>();
+
         slot.ammo = slot.weaponObject.GetComponentInChildren<WeaponAmmo>();
 
         if(slot.shooter != null)
         {
             slot.shooter.ApplyWeaponData(slot.weaponData);
+        }
+
+        if(slot.projectileShooter != null)
+        {
+            slot.projectileShooter.ApplyWeaponData(slot.weaponData);
         }
 
         if(slot.ammo != null)

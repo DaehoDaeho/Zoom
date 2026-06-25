@@ -13,6 +13,30 @@ public class EnemyHealth : MonoBehaviour
 
     private bool isDead = false;
 
+    public int MaxHealth
+    {
+        get { return maxHealth; }
+    }
+
+    public int CurrentHealth
+    {
+        get { return currentHealth; }
+    }
+
+    public float HealthRatio
+    {
+        get
+        {
+            if(maxHealth <= 0)
+            {
+                return 0.0f;
+            }
+
+            float ratio = (float)currentHealth / maxHealth;
+            return ratio;
+        }
+    }
+
     void Awake()
     {
         ResetHealth();

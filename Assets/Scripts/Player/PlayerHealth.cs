@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -72,6 +73,15 @@ public class PlayerHealth : MonoBehaviour
 
         isDead = true;
         currentHealth = 0;
+
+        HandleDeath();
+    }
+
+    void HandleDeath()
+    {
+        GameResultData.SetGameOverResult("You Are Dead. Try Again.");
+
+        SceneManager.LoadScene(GameSceneNames.ResultScene);
     }
 
     public bool Heal(int healAmount)

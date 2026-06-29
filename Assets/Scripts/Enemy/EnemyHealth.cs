@@ -32,7 +32,7 @@ public class EnemyHealth : MonoBehaviour
                 return 0.0f;
             }
 
-            float ratio = (float)currentHealth / maxHealth;
+            float ratio = (float)currentHealth / (float)maxHealth;
             return ratio;
         }
     }

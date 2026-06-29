@@ -1,21 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossClearCondition : MonoBehaviour
 {
     [SerializeField] private EnemyHealth bossHealth;
-    [SerializeField] private GameObject clearPanel;
-
+    
     [SerializeField] private bool unlockCursorOnClear = true;
+
+    [SerializeField] private float resultSceneDelay = 1.5f;
 
     private bool isCleared;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(clearPanel != null)
-        {
-            clearPanel.SetActive(false);
-        }
+        
     }
 
     // Update is called once per frame
@@ -41,15 +40,13 @@ public class BossClearCondition : MonoBehaviour
     {
         isCleared = true;
 
-        if(clearPanel != null)
-        {
-            clearPanel.SetActive(true);
-        }
+        GameResultData.SetClearResult("You Killed Boss And Cleared Mission.");
 
-        if(unlockCursorOnClear == true)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        Invoke("LoadResultScene", resultSceneDelay);
+    }
+
+    void LoadResultScene()
+    {
+        SceneManager.LoadScene(GameSceneNames.ResultScene);
     }
 }

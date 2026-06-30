@@ -9,6 +9,7 @@ public class FPSPlayerMouseLook : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 2.0f;
     [SerializeField] private float minPitch = -80.0f;
     [SerializeField] private float maxPitch = 80.0f;
+    [SerializeField] private GameManager gameManager;
 
     private float cameraPitch = 0.0f;
 
@@ -38,6 +39,11 @@ public class FPSPlayerMouseLook : MonoBehaviour
 
     void LookAround()
     {
+        if (gameManager != null && gameManager.CurrentState != GameState.Playing)
+        {
+            return;
+        }
+
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
@@ -51,15 +57,15 @@ public class FPSPlayerMouseLook : MonoBehaviour
         // Quaternion.Euler : 각도를 이용해서 오브젝트를 회전시켜주는 함수.
         cameraTransform.localRotation = Quaternion.Euler(cameraPitch, 0.0f, 0.0f);
 
-        if(Input.GetKeyDown(KeyCode.Escape) == true)
-        {
-            UnlockCursor();
-        }
+        //if(Input.GetKeyDown(KeyCode.Escape) == true)
+        //{
+        //    UnlockCursor();
+        //}
 
-        if(Input.GetMouseButtonDown(0) == true)
-        {
-            LockCursor();
-        }
+        //if(Input.GetMouseButtonDown(0) == true)
+        //{
+        //    LockCursor();
+        //}
     }
 
     void LockCursor()

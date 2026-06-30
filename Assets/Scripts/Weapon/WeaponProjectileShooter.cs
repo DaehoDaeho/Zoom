@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class WeaponProjectileShooter : MonoBehaviour
 {
@@ -37,6 +38,11 @@ public class WeaponProjectileShooter : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) == true)
         {
+            if (EventSystem.current.IsPointerOverGameObject() == true)
+            {
+                return;
+            }
+
             TryFire();
         }
     }

@@ -1,9 +1,9 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] private GameManager gameManager;
 
     private int currentHealth;
     private bool isDead;
@@ -79,9 +79,10 @@ public class PlayerHealth : MonoBehaviour
 
     void HandleDeath()
     {
-        GameResultData.SetGameOverResult("You Are Dead. Try Again.");
-
-        SceneManager.LoadScene(GameSceneNames.ResultScene);
+        if(gameManager != null)
+        {
+            gameManager.RequestGameOver("You Are Dead. Try Again.");
+        }
     }
 
     public bool Heal(int healAmount)

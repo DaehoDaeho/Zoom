@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// FPS 무기의 Raycast 발사를 담당하는 역할.
@@ -39,6 +40,11 @@ public class WeaponRaycastShooter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) == true)
         {
+            if(EventSystem.current.IsPointerOverGameObject() == true)
+            {
+                return;
+            }
+
             TryFire();
         }
     }

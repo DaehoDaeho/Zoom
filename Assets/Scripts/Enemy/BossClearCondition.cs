@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BossClearCondition : MonoBehaviour
 {
@@ -9,13 +8,9 @@ public class BossClearCondition : MonoBehaviour
 
     [SerializeField] private float resultSceneDelay = 1.5f;
 
-    private bool isCleared;
+    [SerializeField] private GameManager gameManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private bool isCleared;
 
     // Update is called once per frame
     void Update()
@@ -40,13 +35,9 @@ public class BossClearCondition : MonoBehaviour
     {
         isCleared = true;
 
-        GameResultData.SetClearResult("You Killed Boss And Cleared Mission.");
-
-        Invoke("LoadResultScene", resultSceneDelay);
-    }
-
-    void LoadResultScene()
-    {
-        SceneManager.LoadScene(GameSceneNames.ResultScene);
+        if(gameManager != null)
+        {
+            gameManager.RequestClear("You Killed Boss And Cleared Mission.");
+        }
     }
 }

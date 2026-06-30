@@ -5944,7 +5944,6 @@ MonoBehaviour:
   explosionRadius: 1.5
   weaponAmmo: {fileID: 381576211}
   weaponFeedback: {fileID: 907071496}
-  weaponData: {fileID: 0}
 --- !u!1 &1731378694
 GameObject:
   m_ObjectHideFlags: 0
@@ -6885,7 +6884,6 @@ MonoBehaviour:
   explosionRadius: 1.5
   weaponAmmo: {fileID: 290340857}
   weaponFeedback: {fileID: 1525848492}
-  weaponData: {fileID: 0}
 --- !u!1 &2141583161 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1391847458487284, guid: 9bf79f2d846a57440a981c168c87c617, type: 3}

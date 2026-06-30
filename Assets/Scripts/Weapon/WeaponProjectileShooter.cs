@@ -10,7 +10,8 @@ public class WeaponProjectileShooter : MonoBehaviour
     [SerializeField] private float explosionRadius = 1.5f;
     [SerializeField] private WeaponAmmo weaponAmmo;
     [SerializeField] private WeaponFeedback weaponFeedback;
-    [SerializeField] private WeaponData weaponData;
+    
+    private WeaponData weaponData;
 
     private int damage = 20;
     private float fireInterval = 0.5f;

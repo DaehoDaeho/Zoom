@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject[] enemyPrefab;
     [SerializeField] private Transform[] spawnPoints;
 
     Transform ChooseSpawnPoint()
@@ -15,7 +15,9 @@ public class EnemySpawner : MonoBehaviour
     {
         Transform spawnPoint = ChooseSpawnPoint();
 
-        GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        int randomIndex = Random.Range(0, enemyPrefab.Length);
+
+        GameObject enemyObject = Instantiate(enemyPrefab[randomIndex], spawnPoint.position, spawnPoint.rotation);
 
         return enemyObject;
     }

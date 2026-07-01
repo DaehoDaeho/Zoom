@@ -20,6 +20,8 @@ public class EnemyChaseAgent : MonoBehaviour
     [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private float attackRotateSpeed = 8.0f;
 
+    [SerializeField] private EnemyAttackEventReceiver eventReceiver;
+
     private float attackTimer;
     public bool IsAttacking { get; private set; }
 
@@ -39,6 +41,11 @@ public class EnemyChaseAgent : MonoBehaviour
         {
             target = targetObject.transform;
             targetHealth = targetObject.GetComponent<PlayerHealth>();
+
+            if(targetHealth != null && eventReceiver != null)
+            {
+                eventReceiver.SetTargetHealth(targetHealth);
+            }
         }
     }
 
@@ -126,7 +133,7 @@ public class EnemyChaseAgent : MonoBehaviour
             return;
         }
 
-        targetHealth.TakeDamage(attackDamage);
+        //targetHealth.TakeDamage(attackDamage);
     }
 
     /// <summary>

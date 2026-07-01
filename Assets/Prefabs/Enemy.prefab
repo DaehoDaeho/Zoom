@@ -134,6 +134,7 @@ MonoBehaviour:
   attackDamage: 10
   attackCooldown: 1.5
   attackRotateSpeed: 8
+  eventReceiver: {fileID: 746733129288935607}
 --- !u!114 &5489680828289500458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +213,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: b1639c9b375bd884986a2ee831724d7f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7080420421826776514}
+    - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: b1639c9b375bd884986a2ee831724d7f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 746733129288935607}
   m_SourcePrefab: {fileID: 100100000, guid: b1639c9b375bd884986a2ee831724d7f, type: 3}
 --- !u!1 &5020602395524675882 stripped
 GameObject:
@@ -240,6 +244,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &746733129288935607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5020602395524675882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13923861726f96348b448dd51b644c77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHealth: {fileID: 0}
+  attackDamage: 10
 --- !u!4 &5685534958325162896 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3893294197879345259, guid: b1639c9b375bd884986a2ee831724d7f, type: 3}

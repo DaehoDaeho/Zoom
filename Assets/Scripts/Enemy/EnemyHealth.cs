@@ -11,6 +11,10 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private bool destroyOnDeath = true;
     [SerializeField] private float destroyDelay = 0.8f;
 
+    [SerializeField] private EnemyRagdollController ragdollController;
+    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private Collider collider;
+
     private bool isDead = false;
 
     public int MaxHealth
@@ -76,6 +80,21 @@ public class EnemyHealth : MonoBehaviour
         }
 
         isDead = true;
+
+        if(rigidbody != null)
+        {
+            rigidbody.isKinematic = true;
+        }
+
+        if(collider != null)
+        {
+            collider.enabled = false;
+        }
+
+        if(ragdollController != null)
+        {
+            ragdollController.SetRagdollActive(true);
+        }
 
         if(destroyOnDeath == true)
         {

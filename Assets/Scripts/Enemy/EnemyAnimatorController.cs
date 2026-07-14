@@ -12,6 +12,7 @@ public class EnemyAnimatorController : MonoBehaviour
 
     [SerializeField] private string moveSpeedParam = "moveSpeed";
     [SerializeField] private string isAttackingParam = "isAttacking";
+    [SerializeField] private string isShootingParam = "IsShooting";
     [SerializeField] private string isDeadParam = "isDead";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,7 +44,15 @@ public class EnemyAnimatorController : MonoBehaviour
     void UpdateAttackState()
     {
         bool isAttacking = enemyAgent.CurrentState == EnemyState.Attack;
-        animator.SetBool(isAttackingParam, isAttacking);
+        if (enemyAgent.AttackType == EnemyAttackType.Melee)
+        {            
+            animator.SetBool(isAttackingParam, isAttacking);
+        }
+        else if(enemyAgent.AttackType == EnemyAttackType.Ranged)
+        {
+            animator.SetBool(isShootingParam, isAttacking);
+        }
+
     }
 
     void UpdateDeadState()

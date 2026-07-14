@@ -15,12 +15,15 @@ public class EnemyChaseAgent : MonoBehaviour
 
     [SerializeField] private NavMeshAgent agent;
 
+    [SerializeField] private float chaseDistance = 20.0f;
     [SerializeField] private float attackDistance = 1.5f;
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private float attackRotateSpeed = 8.0f;
 
     [SerializeField] private EnemyAttackEventReceiver eventReceiver;
+
+    [SerializeField] private EnemyAttackType attackType = EnemyAttackType.Melee;
 
     private float attackTimer;
     public bool IsAttacking { get; private set; }
@@ -31,6 +34,7 @@ public class EnemyChaseAgent : MonoBehaviour
     public bool IsChasing { get; private set; }
 
     public EnemyState CurrentState { get { return currentState; } }
+    public EnemyAttackType AttackType { get { return attackType; } }
 
     private void Awake()
     {
@@ -80,6 +84,12 @@ public class EnemyChaseAgent : MonoBehaviour
         }
 
         if(targetHealth == null || targetHealth.IsDead == true)
+        {
+            return false;
+        }
+
+        float distance = Vector3.Distance(target.position, transform.position);
+        if(distance >= chaseDistance)
         {
             return false;
         }
